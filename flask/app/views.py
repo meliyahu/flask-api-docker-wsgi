@@ -1,10 +1,18 @@
 from app import app
 from flask import jsonify
+import os
 
 @app.route('/')
 def index():
-    return "<h1>Hello from Flask</h1>"
 
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    msg = ''
+    if not SECRET_KEY:
+        msg = "<h1>Hello from Flask</h1>"
+    else:
+        msg= f'<h1>Hello from Flask. You secret is {SECRET_KEY}</h1'
+    return msg
+    
 @app.route('/api/products')
 def get_products():
     products = [{

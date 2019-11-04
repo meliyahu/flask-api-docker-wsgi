@@ -16,6 +16,8 @@ services:
     # Use environment to set any environment variables
     environment:
       - APP_NAME=MoshehFlaskApp
+      - FLASK_ENV=development
+      # - SECRET_KEY=5f352379324c22463451387a0aec5d2f
 
     # Expose port to the outside
     # uWSGI will serve the Flask application on port 8080
