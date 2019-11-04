@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+
+  # Define our individual services
+  flask:
+    # Build the flask service using the Dockerfile in the flask directory
+    build: ./flask
+
+    # Give our flask container a friendly name
+    container_name: flask
+
+    # Tell Docker to always restart the service - in case it stops
+    restart: always
+
+    # Use environment to set any environment variables
+    environment:
+      - APP_NAME=MoshehFlaskApp
+
+    # Expose port to the outside
+    # uWSGI will serve the Flask application on port 8080
+    expose:
+      - 8080
+    
+    # Mount the container log directory to the local (host machine) log directory
+    # Make sure that the dirctory exists before running docker-compose
+    volumes:
+      - ./log/uwsgi:/var/log/uwsgi
+  
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
